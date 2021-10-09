@@ -1,0 +1,13 @@
+build_dir = build/release
+c_flags = -stdlib=libc++
+
+rule cc
+    command = clang++ -O3 $c_flags -o $out -c $in
+
+rule link
+    command = clang++ $c_flags -o $out $in 
+
+build $build_dir/main.o: cc ./src/main.cpp
+
+build a.out: link $
+    $build_dir/main.o
